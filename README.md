@@ -1,25 +1,25 @@
-# 📦 Django Product CRUD
+# Django Product CRUD
 
 Application web de gestion de produits développée avec **Django**. Ce projet permet d'effectuer les opérations CRUD (*Create, Read, Update, Delete*) sur une base de données de produits via une interface utilisateur simple et intuitive.
 
-## 🚀 Fonctionnalités
+## Fonctionnalités
 
-* ➕ Ajouter un produit
-* 📋 Afficher la liste des produits
-* 🔍 Rechercher un produit par :
+* Ajouter un produit
+* Afficher la liste des produits
+* Rechercher un produit par :
 
   * Nom
   * Catégorie
   * Description
-* ✏️ Modifier un produit existant
-* 🗑️ Supprimer un produit
-* 💬 Messages de confirmation après chaque opération
-* 📦 Gestion du stock
-* 💰 Gestion du prix des produits
+* Modifier un produit existant
+* Supprimer un produit
+* Messages de confirmation après chaque opération
+* Gestion du stock
+* Gestion du prix des produits
 
 ---
 
-## 🛠️ Technologies utilisées
+## Technologies utilisées
 
 * Python 3
 * Django 5.x
@@ -30,7 +30,7 @@ Application web de gestion de produits développée avec **Django**. Ce projet p
 
 ---
 
-## 📂 Structure du projet
+## Structure du projet
 
 ```text
 django-product-crud-project/
@@ -65,7 +65,7 @@ django-product-crud-project/
 
 ---
 
-## 🗃️ Modèle de données
+## Modèle de données
 
 ### Product
 
@@ -81,12 +81,12 @@ django-product-crud-project/
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 ### 1. Cloner le projet
 
 ```bash
-git clone https://github.com/votre-compte/django-product-crud.git
+git clone https://github.com/RAMB3L0/Gestion_produits
 cd django-product-crud-project
 ```
 
@@ -116,6 +116,8 @@ pip install -r requirements.txt
 
 ```bash
 python manage.py migrate
+python manage.py makemigrations products
+python manage.py migrate
 ```
 
 ### 5. Lancer le serveur
@@ -132,7 +134,7 @@ http://127.0.0.1:8000/
 
 ---
 
-## 🔎 Fonctionnement de la recherche
+## Fonctionnement de la recherche
 
 L'application permet de rechercher dynamiquement des produits selon :
 
@@ -150,7 +152,7 @@ Q(description__icontains=query)
 
 ---
 
-## 📈 Perspectives d'amélioration
+## Perspectives d'amélioration
 
 * Authentification des utilisateurs
 * Gestion des rôles (Administrateur, Gestionnaire)
@@ -168,7 +170,7 @@ Q(description__icontains=query)
 
 ---
 
-## 🎯 Objectifs pédagogiques
+## Objectifs pédagogiques
 
 Ce projet a été réalisé afin de :
 
@@ -181,6 +183,6 @@ Ce projet a été réalisé afin de :
 
 ---
 
-## 👨‍💻 Auteur
+## Auteur
 
 Projet académique développé dans le cadre de l'apprentissage du framework Django et du développement d'applications web de gestion.
