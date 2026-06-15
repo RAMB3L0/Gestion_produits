@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <section class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h1 class="text-3xl font-semibold tracking-tight text-slate-900">Produits</h1>
+                <p class="mt-2 text-sm text-slate-600">
+                    Gérez vos produits avec les opérations créer, lire, modifier et supprimer.
+                </p>
+            </div>
+            <a
+                href="{% url 'product_create' %}"
+                class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-700"
+            >
+                Ajouter un produit
+            </a>
+        </div>
+    </section>
+
+    <section class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+        <form method="get" class="grid gap-4 md:grid-cols-[1fr_auto_auto] md:items-end">
+            <div>
+                <label for="search" class="block text-sm font-medium text-slate-700">Recherche</label>
+                <input
+                    id="search"
+                    type="text"
+                    name="q"
+                    value="{{ query }}"
+                    data-search-input
+                    placeholder="Rechercher par nom, catégorie ou description"
+                    class="mt-1 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 shadow-sm outline-none transition focus:border-slate-500"
+                >
+            </div>
+            <button
+                type="submit"
+                class="rounded-xl border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+            >
+                Rechercher
+            </button>
+            <a
+                href="{% url 'product_list' %}"
+                class="rounded-xl border border-slate-300 px-5 py-3 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+            >
+                Réinitialiser
+            </a>
+        </form>
+    </section>
+
+    <section class="rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+        <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
+            <h2 class="text-lg font-semibold text-slate-900">Catalogue</h2>
+            <span data-result-counter class="text-sm text-slate-500">{{ products|length }} produit{% if products|length > 1 %}s{% endif %}</span>
+        </div>
+
+        {% if products %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-slate-50">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Nom</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Catégorie</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Prix</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Stock</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-500">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                        {% for product in products %}
+                            <tr data-searchable="{{ product.name|lower }} {{ product.category|default_if_none:''|lower }} {{ product.description|default_if_none:''|lower }}" class="transition hover:bg-slate-50">
+                                <td class="px-6 py-4 align-top">
+                                    <div class="font-medium text-slate-900">{{ product.name }}</div>
+                                    {% if product.description %}
+                                        <div class="mt-1 max-w-md text-sm text-slate-500">{{ product.description|truncatechars:90 }}</div>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 align-top text-sm text-slate-700">
+                                    {{ product.category|default:'Non définie' }}
+                                </td>
+                                <td class="px-6 py-4 align-top text-sm text-slate-700">
+                                    {{ product.price|floatformat:2 }}
+                                </td>
+                                <td class="px-6 py-4 align-top text-sm text-slate-700">
+                                    {{ product.stock }}
+                                </td>
+                                <td class="px-6 py-4 align-top">
+                                    <div class="flex flex-wrap gap-3">
+                                        <a
+                                            href="{% url 'product_update' product.pk %}"
+                                            class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+                                        >
+                                            Modifier
+                                        </a>
+                                        <a
+                                            href="{% url 'product_delete' product.pk %}"
+                                            class="rounded-lg border border-red-300 px-4 py-2 text-sm font-medium text-red-700 transition hover:bg-red-50"
+                                        >
+                                            Supprimer
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="px-6 py-12 text-center">
+                <h3 class="text-lg font-semibold text-slate-900">Aucun produit enregistré</h3>
+                <p class="mt-2 text-sm text-slate-500">
+                    Commencez par ajouter un produit pour alimenter votre catalogue.
+                </p>
+            </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

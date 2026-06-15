@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer un produit{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-2xl rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-8">
+    <div class="mb-6">
+        <h1 class="text-3xl font-semibold tracking-tight text-slate-900">Supprimer le produit</h1>
+        <p class="mt-2 text-sm text-slate-600">
+            Cette action retirera définitivement le produit du catalogue.
+        </p>
+    </div>
+
+    <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+        <dl class="grid gap-4 sm:grid-cols-2">
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Nom</dt>
+                <dd class="mt-1 text-sm text-slate-900">{{ product.name }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Catégorie</dt>
+                <dd class="mt-1 text-sm text-slate-900">{{ product.category|default:'Non définie' }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Prix</dt>
+                <dd class="mt-1 text-sm text-slate-900">{{ product.price|floatformat:2 }}</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-semibold uppercase tracking-wider text-slate-500">Stock</dt>
+                <dd class="mt-1 text-sm text-slate-900">{{ product.stock }}</dd>
+            </div>
+        </dl>
+    </div>
+
+    <form method="post" class="mt-8 flex flex-col gap-3 sm:flex-row">
+        {% csrf_token %}
+        <button
+            type="submit"
+            class="inline-flex items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-red-700"
+        >
+            Confirmer la suppression
+        </button>
+        <a
+            href="{% url 'product_list' %}"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 px-5 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+        >
+            Retour
+        </a>
+    </form>
+</section>
+{% endblock %}
